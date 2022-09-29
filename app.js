@@ -39,8 +39,10 @@ import routerHistory from './routes/history';
 
 
 //Vocabulary
-import vocabulary from './routes/vocabularyRouter'
+import vocabulary from './routes/vocabularyRouter';
 import topicVocabulary from './routes/topicVocabulary';
+import questionVocabulary from './routes/questionVocabulary';
+import answerVocabulary from './routes/answerVocabulary';
 //----------------Lecture Video------------------------ 
 
 import rourerLectureVideo from './routes/lectureVideo';
@@ -125,6 +127,8 @@ app.use("/api", rourerLectureVideo )
 app.use("/api", vocabulary)
 app.use("/api", topicVocabulary)
 app.use("/api", grammar)
+app.use("/api",questionVocabulary)
+app.use("/api",answerVocabulary)
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("DB Connected"))

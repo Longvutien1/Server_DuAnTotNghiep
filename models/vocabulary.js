@@ -28,6 +28,21 @@ const vocabularySchema = new mongoose.Schema({
     audio:{
         type: String,
         // required: true
+    },
+    // 1: us
+    // 0:uk
+    place:{
+        type: Number,
+        // required: true
+    },
+    // Phiên âm
+    pa:{
+        type: String,
+        required: true
+    },
+    example:{
+        type:String,
+        required: true
     }
 }, {timestamps: true})
 
