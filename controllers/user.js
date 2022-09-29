@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-
 import User from "../models/user";
+import cookie from "cookie";
 import bcrypt from "bcrypt";
 
 export const signIn = async (req, res) => {
@@ -12,9 +12,8 @@ export const signIn = async (req, res) => {
         message: "User không tồn tại",
       });
     }
-    console.log(user.password);
+
     const match = await bcrypt.compare(password, user.password);
-    console.log(match);
     if (match == false) {
       return res.json({
         message: "Mật khẩu không đúng",
@@ -31,13 +30,24 @@ export const signIn = async (req, res) => {
         role: user.role,
       },
     });
+
+    if(user && match == true){
+      // setCookie("CookieUser" , token, {
+      //   req,
+      //   res,
+      //   maxAge : 60 * 60 *24 * 1
+      // })
+      res.setHeader("Content-Type", "text/html");
+      console.log('token', token)
+    }
+    return res.status(200).json("log")
+
   } catch (error) {
     res.status(400).json({ message: "Đăng nhập thất bại" });
   }
 };
 
 export const signUp = async (req, res) => {
-
   const { email, username, password } = req.body;
   try {
     // check user exist
@@ -45,15 +55,10 @@ export const signUp = async (req, res) => {
     if (exisUser) {
       return res.json({ message: "User đã tồn tại" });
     }
-
     // mã hóa pass
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
-
     const user = await User({ email, password: passwordHash, username }).save();
-
-    // console.log(passwordHash);
-    // console.log(user.password);
     res.json({
       user: {
         _id: user._id,
@@ -92,7 +97,6 @@ export const userById = async (req, res, next, id) => {
         message: "Không tìm thấy user",
       });
     }
-
     req.profile = userById;
     req.profile.password = undefined;
     next();
@@ -106,12 +110,10 @@ export const userByEmail = async (req, res, next) => {
   try {
     const userByemail = await User.findOne({ email: email }).exec();
     if (!userByemail) {
-       res.json({
+      res.json({
         message: "Không tìm thấy user",
       });
     }
-
-
     req.profile = userByemail;
     req.profile.password = undefined;
     console.log(req.profile);
@@ -135,7 +137,6 @@ export const updateUser = async (request, response) => {
 };
 
 export const deleteUser = async (request, response) => {
-
   try {
     const user = await User.findOneAndDelete({ _id: request.params.id });
     response.json(user);
@@ -147,21 +148,15 @@ export const deleteUser = async (request, response) => {
 export const changePassword = async (req, res, next) => {
   try {
     const { email } = req.body;
-
     // mã hóa pass
     const salt = await bcrypt.genSalt(10);
     const password = await bcrypt.hash(String(req.body.password), salt);
-
-    
     const userNewPassword = await User.findOneAndUpdate(
       { email: email },
       { password: password },
       { new: true }
     );
-
-
     res.json(userNewPassword);
-    // console.log(id);
   } catch (error) {
     res.status(400).json({ message: "Lỗi rồi" });
   }
