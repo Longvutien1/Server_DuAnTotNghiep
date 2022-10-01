@@ -1,26 +1,34 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user";
-import cookie from "cookie";
 import bcrypt from "bcrypt";
-
+import { setCookie } from "react-cookies";
 export const signIn = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email }).exec();
+    const match = await bcrypt.compare(password, user.password);
     if (!user) {
       return res.json({
         message: "User không tồn tại",
       });
     }
-
-    const match = await bcrypt.compare(password, user.password);
     if (match == false) {
-      return res.json({
+      return res.status(401).json({
         message: "Mật khẩu không đúng",
       });
     }
-
     const token = jwt.sign({ _id: user._id }, "123456", { expiresIn: "12h" });
+    if (user && match == false) {
+      // console.log(1243284653278);
+      // setCookie("CookieUser", token, {
+      //   req,
+      //   res,
+      //   maxAge: 60 * 60 * 24 * 1,
+      // });
+      res.setHeader('user' , token)
+      console.log("token", token);
+    }
+
     res.json({
       token,
       user: {
@@ -30,18 +38,6 @@ export const signIn = async (req, res) => {
         role: user.role,
       },
     });
-
-    if(user && match == true){
-      // setCookie("CookieUser" , token, {
-      //   req,
-      //   res,
-      //   maxAge : 60 * 60 *24 * 1
-      // })
-      res.setHeader("Content-Type", "text/html");
-      console.log('token', token)
-    }
-    return res.status(200).json("log")
-
   } catch (error) {
     res.status(400).json({ message: "Đăng nhập thất bại" });
   }
