@@ -64,6 +64,7 @@ import month from './routes/month';
 
 //-----------------Week------------------------ 
 import week from './routes/week';
+import routeConversation from './routes/conversation';
 
 const options = {
   definition: {
@@ -102,6 +103,7 @@ app.use("/api", routerQuiz )
 app.use("/api", routerSpeak )
 app.use("/api", routerListenWrite )
 app.use("/api" ,routeGrammar)
+app.use("/api" ,routeConversation)
 //----------------QUESTION------------------------ 
 
 app.use("/api", routerAnswerSpeak )
