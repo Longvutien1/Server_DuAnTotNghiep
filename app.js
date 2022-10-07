@@ -18,6 +18,7 @@ import routerUserSpeak from './routes/userSpeak';
 import routerUserQuiz from './routes/userQuiz';
 import routerUserListenWrite from './routes/userListenWrite';
 import routerEmail from './routes/sendMail';
+import routeGrammar from './routes/grammar';
 //-----------------USER-ANSWER------------------------ 
 const { Auth, LoginCredentials  } = require("two-step-auth");
 const app = express();
@@ -36,6 +37,7 @@ app.use("/api", routerEmail )
 app.use("/api", routerQuiz )
 app.use("/api", routerSpeak )
 app.use("/api", routerListenWrite )
+app.use("/api" ,routeGrammar)
 //----------------QUESTION------------------------ 
 
 app.use("/api", routerAnswerSpeak )

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user";
 import bcrypt from "bcrypt";
-import { setCookie } from "react-cookies";
+// import { setCookie } from "react-cookies";
 export const signIn = async (req, res) => {
   const { email, password } = req.body;
   try {
