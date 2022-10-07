@@ -44,7 +44,12 @@ export const signIn = async (req, res) => {
 };
 
 export const signUp = async (req, res) => {
+
   const { email, username, password } = req.body;
+
+
+  // const { email, username, password, img } = req.body;
+
   try {
     // check user exist
     const exisUser = await User.findOne({ email }).exec();
@@ -54,7 +59,14 @@ export const signUp = async (req, res) => {
     // mã hóa pass
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
+
     const user = await User({ email, password: passwordHash, username }).save();
+
+
+    // const user = await User({ email, password: passwordHash, username, img }).save();
+
+    // console.log(passwordHash);
+    // console.log(user.password);
     res.json({
       user: {
         _id: user._id,

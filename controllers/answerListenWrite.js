@@ -11,7 +11,7 @@ export const listAnswerListenWrite = async (req,res)=>{
 
 export const detailAnswerListenWrite = async (req,res)=>{
     try {
-        const answerListenWrite = await AnswerListenWrite.findOne({_id: req.params.id }).exec()
+        const answerListenWrite = await AnswerListenWrite.findOne({idQuestion: req.params.id }).exec()
         res.json(answerListenWrite)
     } catch (error) {
         res.status(400).json({message:"Không tìm thấy Data"})
@@ -29,7 +29,7 @@ export const addAnswerListenWrite = async (req,res)=>{
 
 export const editAnswerListenWrite = async (req,res)=>{
     try {
-        const answerListenWrite = await AnswerListenWrite.findOneAndUpdate({_id: req.params.id }, req.body ,{new:true}).exec()
+        const answerListenWrite = await AnswerListenWrite.findOneAndUpdate({idQuestion: req.params.id }, req.body ,{new:true}).exec()
         res.json(answerListenWrite)
     } catch (error) {
         res.status(400).json({message:"Sửa thất bại"})

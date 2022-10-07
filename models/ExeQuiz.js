@@ -13,10 +13,10 @@ const exeQuizSchema = new mongoose.Schema({
         required: true
     },
     timeLimit:{
-        type: Date,
+        type: Numbers,
         required: true
     }
 
-})
+},{timestamps:true})
 
-export default mongoose.Model('ExeQuiz', exeQuizSchema)
+export default mongoose.model('ExeQuiz', exeQuizSchema)

@@ -3,38 +3,38 @@ import { stringify } from "uuid";
 const { ObjectId } = mongoose
 
 const listenWriteSchema = new mongoose.Schema({
-    area:{
+    area: {
         type: String,
-        required:true
+        required: true
     },
-    category:{
+    category: {
         type: ObjectId,
         ref: "Category"
     },
-    content:[
-      {
-        name:{
-            type: String,
-            required:true
-        },
-        text:{
-            type: String,
-            required:true
-        },
-        answer:{
-            type: String,
+    content: [
+        {
+            name: {
+                type: String,
+                required: true
+            },
+            text: {
+                type: String,
+                required: true
+            },
+            answer: {
+                type: Array,
+            }
         }
-      }
-    ] ,
-       
+    ],
+
     // order:{
     //     type: Number,
     //     required:true
     // },
     audio:{
         type: String,
-        required:true
+        required: true
     }
-},{timestamps:true})
+}, { timestamps: true })
 
-export default mongoose.model("ListenWrite",listenWriteSchema)
+export default mongoose.model("ListenWrite", listenWriteSchema)

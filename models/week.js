@@ -1,20 +1,21 @@
 import mongoose from "mongoose";
 const { ObjectId } = mongoose
 
-const answerQuizSchema = new mongoose.Schema({
-    quiz:{
-        // ObjectId
+const weekSchema = new mongoose.Schema({
+    month:{
         type: ObjectId,
-        ref: "Quiz"
+        ref:"Month"
     },
-    answer:{
+    title:{
         type: String,
         required: true
     },
-    isCorrect:{
+    order:{
         type: Number,
+        default: 0,
         required: true
     }
+
 },{timestamps:true})
 
-export default mongoose.model("AnswerQuiz",answerQuizSchema)
+export default mongoose.model('Week', weekSchema)

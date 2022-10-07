@@ -1,5 +1,5 @@
 import ListenWrite from "../models/listenWrite"
-
+import Category from "../models/category"
 export const listListenWrite = async (req,res)=>{
     try {
         const listenWrite = await ListenWrite.find().exec()
@@ -10,12 +10,27 @@ export const listListenWrite = async (req,res)=>{
 }
 
 export const detailListenWrite = async (req,res)=>{
-    try {
+     // console.log(req.params.id);
+     try {
         const listenWrite = await ListenWrite.findOne({_id: req.params.id }).exec()
         res.json(listenWrite)
     } catch (error) {
         res.status(400).json({message:"Không tìm thấy Data"})
     }
+}
+
+export const detailListenWriteByIdCategory = async (req,res)=>{
+    console.log(req.params.id);
+    try {
+        const categories =  await Category.findOne({_id:req.params.id}).exec();
+        // const listenWrite = await ListenWrite.find({categories}).select("-category").exec();
+          const listenWrite = await ListenWrite.findOne({category:categories}).populate("category").exec();
+        // const listenWrite = await ListenWrite.findOne({category: req.params.id }).exec()
+        res.json(listenWrite)
+    } catch (error) {
+        res.status(400).json({message:"Không tìm thấy Data"})
+    }
+   
 }
 
 export const addListenWrite = async (req,res)=>{

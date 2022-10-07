@@ -18,9 +18,13 @@ const userQuizSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    score:{
+    point:{
         type: Number,
         required: true
+    },
+    answer:{
+        type: String,
+        
     },
 
 },{timestamps:true})

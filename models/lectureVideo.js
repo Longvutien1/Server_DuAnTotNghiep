@@ -1,27 +1,19 @@
 import mongoose from "mongoose";
 const { ObjectId } = mongoose
 
-const quizSchema = new mongoose.Schema({
+const lectureVideoSchema = new mongoose.Schema({
     category:{
         type: ObjectId,
         ref:"Category"
     },
-    question:{
+    nameVideo:{
         type: String,
         required: true
     },
-    image:{
+    videoUrl:{
         type: String,
         required: true
     },
-    timeLimit:{
-        type: Number,
-        required: true
-    },
-    type:{
-        type: Number,
-        required: true
-    }
 },{timestamps:true})
 
-export default mongoose.model("Quiz",quizSchema)
+export default mongoose.model("LectureVideo", lectureVideoSchema)
