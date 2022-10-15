@@ -50,6 +50,9 @@ import topicVocabulary from './routes/topicVocabulary';
 
 import rourerLectureVideo from './routes/lectureVideo';
 import grammar from './routes/grammar';
+import classRouter from './routes/class'
+
+
 
 //Sentences
 import sentences from './routes/sentences';
@@ -59,6 +62,8 @@ import sentences from './routes/sentences';
 //-----------------Course------------------------ 
 import course from './routes/course';
 
+import noteCouse from './routes/noteRouter';
+
 //-----------------Month------------------------ 
 import month from './routes/month';
 
@@ -66,6 +71,12 @@ import month from './routes/month';
 import week from './routes/week';
 import routeConversation from './routes/conversation';
 
+//-----------------Day------------------------ 
+import day from './routes/day';
+
+
+//----------------PracticeActivity---------
+import PracticeActivityRouter from './routes/practiceActivity'
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -167,6 +178,8 @@ app.use("/api", rourerLectureVideo )
 app.use("/api", vocabulary)
 app.use("/api", topicVocabulary)
 app.use("/api", grammar)
+// Class
+app.use('/api', classRouter)
 
 //Sentences
 app.use("/api", sentences);
@@ -175,11 +188,19 @@ app.use("/api", sentences);
 //----------------Course------------------------ 
 app.use("/api", course)
 
+app.use("/api", noteCouse)
+
 //----------------Month------------------------ 
 app.use("/api", month)
 
 //----------------Week------------------------ 
 app.use("/api", week)
+
+//----------------Day------------------------ 
+app.use("/api", day)
+
+//----------------PracticeActivity-------------
+app.use('/api', PracticeActivityRouter)
 
 mongoose
   .connect(process.env.MONGO_URI)

@@ -6,50 +6,46 @@ export const signIn = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email }).exec();
-    const match = await bcrypt.compare(password, user.password);
     if (!user) {
       return res.json({
-        message: "User không tồn tại",
+        message: "Tài khoản hoặc mật khẩu không chính xác",
       });
     }
+    const match = await bcrypt.compare(password, user.password);
     if (match == false) {
-      return res.status(401).json({
-        message: "Mật khẩu không đúng",
+      return res.json({
+        message: "Tài khoản hoặc mật khẩu không chính xác",
       });
-    }
-    const token = jwt.sign({ _id: user._id }, "123456", { expiresIn: "12h" });
-    if (user && match == false) {
-      // console.log(1243284653278);
-      // setCookie("CookieUser", token, {
-      //   req,
-      //   res,
-      //   maxAge: 60 * 60 * 24 * 1,
-      // });
-      res.setHeader('user' , token)
-      console.log("token", token);
     }
 
-    res.json({
-      token,
-      user: {
+    const token = jwt.sign(
+      {
         _id: user._id,
         email: user.email,
         username: user.username,
         role: user.role,
+        phone: user.phone,
+        address: user.address,
+        img: user.img,
+        sex: user.sex,
+        colorImage: user.colorImage,
       },
-    });
+      "123456",
+      { expiresIn: "12h" }
+    );
+
+    res.setHeader("userCookie", token);
+
+    return res
+      .status(200)
+      .json({ message: "Đăng nhập thành công !", token: token });
   } catch (error) {
     res.status(400).json({ message: "Đăng nhập thất bại" });
   }
 };
 
 export const signUp = async (req, res) => {
-
-  const { email, username, password } = req.body;
-
-
-  // const { email, username, password, img } = req.body;
-
+  const { email, username, password, img, colorImage } = req.body;
   try {
     // check user exist
     const exisUser = await User.findOne({ email }).exec();
@@ -60,20 +56,143 @@ export const signUp = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    const user = await User({ email, password: passwordHash, username }).save();
+    const user = await User({
+      email,
+      password: passwordHash,
+      username,
+      img,
+      colorImage,
+    }).save();
 
-
-    // const user = await User({ email, password: passwordHash, username, img }).save();
-
-    // console.log(passwordHash);
-    // console.log(user.password);
     res.json({
       user: {
         _id: user._id,
         email: user.email,
         username: user.username,
+        colorImage,
       },
     });
+  } catch (error) {
+    res.status(400).json({ message: "Lỗi rồi" });
+  }
+};
+
+export const signInWidthFaceBook = async (req, res) => {
+  const { id, email, name, img } = req.body;
+  try {
+    const exisUser = await User.findOne({ idFacebook: id }).exec();
+
+    if (exisUser) {
+      const token = jwt.sign(
+        {
+          _id: exisUser._id,
+          email: exisUser.email,
+          username: exisUser.username,
+          role: exisUser.role,
+          phone: exisUser.phone,
+          address: exisUser.address,
+          img: exisUser.img,
+          sex: exisUser.sex,
+        },
+        "123456",
+        { expiresIn: "12h" }
+      );
+
+      res.setHeader("userCookie", token);
+
+      return res
+        .status(200)
+        .json({ message: "Đăng nhập thành công !", token: token });
+    } else {
+      const user = await User({
+        idFacebook: id,
+        email,
+        password: "123456",
+        username: name,
+        img,
+      }).save();
+
+      const token = jwt.sign(
+        {
+          _id: user._id,
+          email: user.email,
+          username: user.username,
+          role: user.role,
+          phone: user.phone,
+          address: user.address,
+          img: user.img,
+          sex: user.sex,
+        },
+        "123456",
+        { expiresIn: "12h" }
+      );
+
+      res.setHeader("userCookie", token);
+
+      return res
+        .status(200)
+        .json({ message: "Đăng nhập thành công !", token: token });
+    }
+  } catch (error) {
+    res.status(400).json({ message: "Lỗi rồi" });
+  }
+};
+
+export const signInWidthGoogle = async (req, res) => {
+  const { id, email, name, img } = req.body;
+  try {
+    const exisUser = await User.findOne({ idGoogle: id }).exec();
+
+    if (exisUser) {
+      const token = jwt.sign(
+        {
+          _id: exisUser._id,
+          email: exisUser.email,
+          username: exisUser.username,
+          role: exisUser.role,
+          phone: exisUser.phone,
+          address: exisUser.address,
+          img: exisUser.img,
+          sex: exisUser.sex,
+        },
+        "123456",
+        { expiresIn: "12h" }
+      );
+
+      res.setHeader("userCookie", token);
+
+      return res
+        .status(200)
+        .json({ message: "Đăng nhập thành công !", token: token });
+    } else {
+      const user = await User({
+        idGoogle: id,
+        email,
+        password: "123456",
+        username: name,
+        img,
+      }).save();
+      const token = jwt.sign(
+        {
+          _id: user._id,
+          email: user.email,
+          username: user.username,
+          role: user.role,
+          phone: user.phone,
+          address: user.address,
+          img: user.img,
+          sex: user.sex,
+        },
+        "123456",
+        { expiresIn: "12h" }
+      );
+
+      res.setHeader("userCookie", token);
+
+      return res
+        .status(200)
+        .json({ message: "Đăng nhập thành công !", token: token });
+    }
   } catch (error) {
     res.status(400).json({ message: "Lỗi rồi" });
   }
@@ -124,7 +243,6 @@ export const userByEmail = async (req, res, next) => {
     }
     req.profile = userByemail;
     req.profile.password = undefined;
-    console.log(req.profile);
     next();
   } catch (error) {
     console.log(error);
@@ -159,13 +277,31 @@ export const changePassword = async (req, res, next) => {
     // mã hóa pass
     const salt = await bcrypt.genSalt(10);
     const password = await bcrypt.hash(String(req.body.password), salt);
+
     const userNewPassword = await User.findOneAndUpdate(
       { email: email },
       { password: password },
       { new: true }
     );
+
     res.json(userNewPassword);
   } catch (error) {
     res.status(400).json({ message: "Lỗi rồi" });
+  }
+};
+
+export const getCurrentUser = async (req, res) => {
+  try {
+    const token = req.headers.authtokens;
+    const verifyToken = jwt.verify(token, "123456", (error, decoded) => {
+      if (error) {
+        // Token không hợp lệ
+        return;
+      }
+      return decoded;
+    });
+    res.json(verifyToken);
+  } catch (error) {
+    res.status(400).json({ message: "Không tìm thấy user" });
   }
 };

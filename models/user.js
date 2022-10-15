@@ -33,9 +33,21 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
+    colorImage: {
+      type: String,
+      default: "",
+    },
     role: {
       type: String,
       default: "0",
+    },
+    idFacebook: {
+      type: String,
+      default: "",
+    },
+    idGoogle: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }
