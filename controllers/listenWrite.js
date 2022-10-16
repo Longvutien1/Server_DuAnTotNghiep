@@ -24,7 +24,7 @@ export const detailListenWriteByIdCategory = async (req,res)=>{
     try {
         const categories =  await Category.findOne({_id:req.params.id}).exec();
         // const listenWrite = await ListenWrite.find({categories}).select("-category").exec();
-          const listenWrite = await ListenWrite.findOne({category:categories}).populate("category").exec();
+          const listenWrite = await ListenWrite.findOne({category:categories}).populate("practiceActivity").exec();
         // const listenWrite = await ListenWrite.findOne({category: req.params.id }).exec()
         res.json(listenWrite)
     } catch (error) {

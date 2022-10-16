@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 const { ObjectId } = mongoose
 
 const quizSchema = new mongoose.Schema({
-    category:{
+    practiceActivity:{
         type: ObjectId,
-        ref:"Category"
+        ref:"PracticeActivity"
     },
     question:{
         type: String,
@@ -21,6 +21,16 @@ const quizSchema = new mongoose.Schema({
     type:{
         type: Number,
         required: true
+    },
+    meaning:{
+        type: String,
+        // required: true
+        default: ""
+    },
+    suggestions:{
+        type: String,
+        // required: true
+        default: ""
     }
 },{timestamps:true})
 

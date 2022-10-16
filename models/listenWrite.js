@@ -7,9 +7,9 @@ const listenWriteSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    category: {
+    practiceActivity: {
         type: ObjectId,
-        ref: "Category"
+        ref: "PracticeActivity"
     },
     content: [
         {

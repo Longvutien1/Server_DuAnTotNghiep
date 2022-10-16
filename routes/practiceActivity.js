@@ -1,5 +1,5 @@
 import express from "express";
-import { addPracticeActivity, deletePracticeActivity, detailPracticeActivity, editPracticeActivity, getListPracticeActivity } from "../controllers/practiceActivity";
+import { addPracticeActivity, deletePracticeActivity, detailPracticeActivity, editPracticeActivity, getListPracticeActivity, getListPracticeActivityByDay } from "../controllers/practiceActivity";
 
 
 const router = express.Router();
@@ -81,6 +81,33 @@ const router = express.Router();
  *
  * */
 router.get("/practiceActivities", getListPracticeActivity);
+
+// -------------------Get Detail PracticeActivity----------------------
+/**
+ * @swagger
+ *   /api/practiceActivity/day/{id}:
+ *     get:
+ *       summary: Get PracticeActivity by Day
+ *       tags: [PracticeActivity]
+ *       parameters:
+ *           - in: path
+ *             name: id
+ *             schema:
+ *               type: string
+ *             required: true
+ *             description: The Day id
+ *       responses:
+ *           200:
+ *             description: The PracticeActivity detail by Day
+ *             contents:
+ *               application/json:
+ *                 schema:
+ *                   $ref: '#/components/schemas/PracticeActivity'
+ *           400:
+ *             description: The PracticeActivity is Not found
+ */
+
+router.get("/practiceActivity/day/:id", getListPracticeActivityByDay);
 
 // -------------------Get Detail PracticeActivity----------------------
 /**

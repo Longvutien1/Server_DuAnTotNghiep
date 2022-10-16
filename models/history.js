@@ -6,14 +6,14 @@ const historySchema = new mongoose.Schema({
         type: ObjectId,
         ref: "User"
     },
-    // score:{
-    //     type: ObjectId,
-    //     ref: "Score"
-    // },
-    category:{
+    practiceActivity:{
         type: ObjectId,
-        ref: "Category"
+        ref: "PracticeActivity"
     },
+    // score:{
+    //     type: Number,
+    //     required: true
+    // },
     totalPoint:{
         type: Number,
         required: true

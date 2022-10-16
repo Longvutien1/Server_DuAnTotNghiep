@@ -13,7 +13,7 @@ export const listHistory = async (req,res)=>{
 
 export const detailHistory = async (req,res)=>{
     try {
-        const history = await History.findOne({_id: req.params.id }).populate("category").exec()
+        const history = await History.findOne({_id: req.params.id }).populate("practiceActivity").exec()
         // const userQuiz = await UserQuiz.find({_id: history.answerQuiz}).populate("answerQuiz").exec()
         const userQuiz2 = await UserQuiz.find({history}).populate("answerQuiz").populate("quiz").exec()
        

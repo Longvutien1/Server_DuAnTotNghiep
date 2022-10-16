@@ -1,14 +1,11 @@
 import express from "express";
 
-import { changeOTP, loginEmail } from "../controllers/otpEmail";
-import { changePassword, userByEmail, userById } from "../controllers/user";
+import { loginEmail } from "../controllers/otpEmail";
+import { changePassword, userByEmail } from "../controllers/user";
 
+const routerEmail = express.Router();
 
-const routerEmail = express.Router()
+routerEmail.put("/newPassword", changePassword);
+routerEmail.post("/sendMail", userByEmail, loginEmail);
 
-// routerEmail.post("/sendMail", userByEmail, addMail)
-routerEmail.put('/newPassword',changePassword);
-routerEmail.post('/sendMail',userByEmail, loginEmail);
-routerEmail.post('/changeOTP',changeOTP);
-
-export default routerEmail
+export default routerEmail;

@@ -238,7 +238,7 @@ export const userByEmail = async (req, res, next) => {
     const userByemail = await User.findOne({ email: email }).exec();
     if (!userByemail) {
       res.json({
-        message: "Không tìm thấy user",
+        message: "Tài khoản không tồn tại !",
       });
     }
     req.profile = userByemail;
