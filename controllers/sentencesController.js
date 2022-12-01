@@ -4,7 +4,7 @@ import PracticeActivity from "../models/practiceActivity";
 
 export const getlistSentence = async (req, res) => {
     try {
-        const data = await Sentences.find({}).exec();
+        const data = await Sentences.find({}).populate('practiceActivity').exec();
         res.json(data)
     } catch (error) {
         res.status(400).json({ message: "Lỗi" })

@@ -25,6 +25,14 @@ const learningProgressSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    oralWeekVocabularyScore:{
+      type: Number,
+        default: 0
+    },
+    oralWeekSentencesScore:{
+      type: Number,
+        default: 0
+    },
     isPass: {
         type: Boolean,
         default: false

@@ -20,14 +20,18 @@ const answerQuizSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    explainAnswer:{
+    explainAnswer: {
       type: String,
       default: "",
     },
-    image:{
+    image: {
       type: String,
-      default: ""
-  },
+      default: "",
+    },
+    order:{
+      type:Number,
+      default: 0,
+    }
   },
   { timestamps: true }
 );
