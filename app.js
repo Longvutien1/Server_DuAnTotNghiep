@@ -4,6 +4,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import swaggerUI from 'swagger-ui-express'
 import swaggerJsDoc from 'swagger-jsdoc'
+var bodyParser = require('body-parser');
 
 import homeRouter from './routes/home';
 import { checkAuth } from './midlerware/checkAuth';
@@ -82,6 +83,9 @@ import PracticeActivityRouter from './routes/practiceActivity'
 
 //----------------GoogleSpeech---------
 import googleSpeech from './routes/googleSpeech';
+
+// ------------- VNPAY--------------------------------
+import vnpay from './routes/vnpayRoute';
 
 const speech = require('@google-cloud/speech');
 const speechClient = new speech.SpeechClient()
@@ -201,6 +205,11 @@ app.use('/api', PracticeActivityRouter)
 //----------------GoogleSpeech-------------
 app.use('/api', googleSpeech)
 
+// -------------- VNPAY ----------------
+app.use('/order',vnpay)
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("DB Connected"))
