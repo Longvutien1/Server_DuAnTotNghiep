@@ -206,7 +206,7 @@ app.use('/api', PracticeActivityRouter)
 app.use('/api', googleSpeech)
 
 // -------------- VNPAY ----------------
-app.use('/order',vnpay)
+app.use('/api',vnpay)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -216,6 +216,12 @@ mongoose
   .catch((error) => console.log("DB not connected ", error));
 
 
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+    res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
+    next(); 
+})
 // mongoose.connect('mongodb://localhost:27017/datn')
 
 // app.use(express.static(path.join(__dirname, "./frontend/build")));
