@@ -24,6 +24,10 @@ const classSchema = new mongoose.Schema({
             }
         }
     ],
+    linkGoogleMeet: {
+        type: String,
+        default: 'https://meet.google.com/mqz-snbd-bsq'
+    },
     teacherOfClass: [
       {
           userId: {

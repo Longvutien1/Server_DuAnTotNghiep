@@ -8,8 +8,38 @@ export const getListClass = async (req, res) => {
         path: "userOfClass",
         populate: { path: "userId" },
       })
+      .populate({
+        path: "teacherOfClass",
+        populate: { path: "userId" },
+      })
       .exec();
     res.json(listClass);
+  } catch (error) {
+    res.status(400).json({ message: "Không tìm thấy Data" });
+  }
+};
+
+export const getClassByUserId = async (req, res) => {
+  try {
+    const {userId} = req.params;
+    const listClass = await Classes.find({})
+      .populate({
+        path: "userOfClass",
+        populate: { path: "userId" },
+      })
+      .exec();
+    const listClassByUserId = listClass.filter((item) => {
+      const listUser = item.userOfClass;
+
+      const check = listUser.find((item) => item.userId._id.toString() === userId);
+      console.log(check);
+      if (check) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    res.json(listClassByUserId);
   } catch (error) {
     res.status(400).json({ message: "Không tìm thấy Data" });
   }
