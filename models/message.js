@@ -14,6 +14,10 @@ const messageSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "Classes"
     },
+    status: {
+        type: Boolean,
+        default: true
+    }
     
 }, {timestamps: true})
 
