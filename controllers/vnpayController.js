@@ -1,4 +1,5 @@
 // Post URL
+import Vnpayment from '../models/vnpayment';
 export const post_payment_url =  (req, res, next) => {
         var ipAddr = req.headers['x-forwarded-for'] ||
             req.connection.remoteAddress ||
@@ -53,9 +54,9 @@ export const post_payment_url =  (req, res, next) => {
 
 // Return
 export const vppay_return =  (req, res, next) => {
-    console.log(JSON.stringify(req.headers['headerName']));
-    var vnp_Params = req.query;
-    var secureHash = vnp_Params['vnp_SecureHash'];
+    var vnp_Params = req.body;
+    console.log("ungtest",vnp_Params);
+    var secureHash = vnp_Params.vnp_SecureHash;
 
     delete vnp_Params['vnp_SecureHash'];
     delete vnp_Params['vnp_SecureHashType'];
@@ -69,12 +70,12 @@ export const vppay_return =  (req, res, next) => {
     var hmac = crypto.createHmac("sha512", secretKey);
     var signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");     
     console.log("Signed", signed);
-    if(secureHash !== signed){
-        //Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
-        res.json({code: vnp_Params['vnp_ResponseCode']});
+    if(secureHash === signed){
+        res.json(vnp_Params);
     } else{
         res.json({code: '97'});
     }
+
 }
 
 // vnpay_ipn
@@ -121,4 +122,13 @@ function sortObject(obj) {
         sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
     }
     return sorted;
+}
+
+export const addNewPayment = async (req, res) =>{
+    try {
+        const pay = await Vnpayment(req.body).save();
+        res.json(pay)
+    } catch (error) {
+        res.status(400).json({message:"Thêm thất bại"})
+    }
 }
