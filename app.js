@@ -4,6 +4,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import swaggerUI from 'swagger-ui-express'
 import swaggerJsDoc from 'swagger-jsdoc'
+var bodyParser = require('body-parser');
 
 import homeRouter from './routes/home';
 import { checkAuth } from './midlerware/checkAuth';
@@ -83,7 +84,12 @@ import PracticeActivityRouter from './routes/practiceActivity'
 //----------------GoogleSpeech---------
 import googleSpeech from './routes/googleSpeech';
 
+
+// ------------- VNPAY--------------------------------
+import vnpay from './routes/vnpayRoute';
+
 import messageRouter from './routes/message';
+
 
 const speech = require('@google-cloud/speech');
 const speechClient = new speech.SpeechClient()
@@ -206,8 +212,15 @@ app.use('/api', PracticeActivityRouter)
 //----------------GoogleSpeech-------------
 app.use('/api', googleSpeech)
 
+// -------------- VNPAY ----------------
+app.use('/api',vnpay)
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 //----------------GoogleSpeech-------------
 app.use('/api', messageRouter)
+
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -215,6 +228,12 @@ mongoose
   .catch((error) => console.log("DB not connected ", error));
 
 
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+    res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
+    next(); 
+})
 // mongoose.connect('mongodb://localhost:27017/datn')
 
 // app.use(express.static(path.join(__dirname, "./frontend/build")));
