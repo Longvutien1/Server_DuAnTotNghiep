@@ -43,6 +43,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    pay:{
+      type:Number,
+      default:0
+    }
   },
   { timestamps: true }
 );

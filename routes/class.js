@@ -4,6 +4,7 @@ import {
   deleteClass,
   detailClass,
   editClass,
+  getClassByUserId,
   getListClass,
   joinClass,
 } from "../controllers/class";
@@ -122,6 +123,34 @@ router.get("/classes", getListClass);
  */
 
 router.get("/class/:id", detailClass);
+
+
+// -------------------Get Class of UserId----------------------
+/**
+ * @swagger
+ *   /api/class/get-class-by-user/{userId}:
+ *     get:
+ *       summary: Get Class by userId
+ *       tags: [Classes]
+ *       parameters:
+ *           - in: path
+ *             name: userId
+ *             schema:
+ *               type: string
+ *             required: true
+ *             description: The Classes userId
+ *       responses:
+ *           200:
+ *             description: The Classes by userId
+ *             contents:
+ *               application/json:
+ *                 schema:
+ *                   $ref: '#/components/schemas/Class'
+ *           400:
+ *             description: The Classes is Not found
+ */
+
+ router.get("/class/get-class-by-user/:userId", getClassByUserId);
 
 // -------------------Add Class----------------------
 /**
