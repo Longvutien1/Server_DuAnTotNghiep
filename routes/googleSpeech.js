@@ -1,5 +1,5 @@
 import express from "express";
-import { getAudio, transcribeSpeech, uploadAudio } from "../controllers/googleSpeech";
+import { getAudio, transcribeSpeech, uploadAudio, quickStart } from "../controllers/googleSpeech";
 const Multer = require("multer");
 
 const multer = Multer({
@@ -14,6 +14,7 @@ const router = express.Router();
 router.get("/googlespeech",transcribeSpeech)
 router.get("/upload", getAudio)
 router.post("/upload", multer.single("audiofile"),uploadAudio)
+router.post("/speaker",quickStart)
 router.get('/googlespeech2', (request,response)=>{
     response.send(ggSpeech());
 })
