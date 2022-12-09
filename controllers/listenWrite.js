@@ -19,13 +19,10 @@ export const detailListenWrite = async (req,res)=>{
     }
 }
 
-export const detailListenWriteByIdCategory = async (req,res)=>{
+export const detailListenWriteByActivity = async (req,res)=>{
     console.log(req.params.id);
     try {
-        const categories =  await Category.findOne({_id:req.params.id}).exec();
-        // const listenWrite = await ListenWrite.find({categories}).select("-category").exec();
-          const listenWrite = await ListenWrite.findOne({category:categories}).populate("practiceActivity").exec();
-        // const listenWrite = await ListenWrite.findOne({category: req.params.id }).exec()
+        const listenWrite = await ListenWrite.findOne({practiceActivity:req.params.id}).populate("practiceActivity").exec();
         res.json(listenWrite)
     } catch (error) {
         res.status(400).json({message:"Không tìm thấy Data"})

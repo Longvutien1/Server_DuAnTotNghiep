@@ -11,7 +11,7 @@ export const listAnswerListenWrite = async (req,res)=>{
 
 export const detailAnswerListenWrite = async (req,res)=>{
     try {
-        const answerListenWrite = await AnswerListenWrite.findOne({idQuestion: req.params.id }).exec()
+        const answerListenWrite = await AnswerListenWrite.find({idListenWrite: req.params.id }).exec()
         res.json(answerListenWrite)
     } catch (error) {
         res.status(400).json({message:"Không tìm thấy Data"})
