@@ -1,5 +1,5 @@
 import express from "express";
-import { getMessageByGroup } from "../controllers/message";
+import { createMessage, getMessageByGroup, removeMessage, updateMessage } from "../controllers/message";
 
 
 const router = express.Router();
@@ -39,6 +39,9 @@ const router = express.Router();
  *         userId: 
  *           type: string
  *           description: userId of Message
+ *         status: 
+ *           type: Boolean
+ *           description: status of Message
  *         createdAt: 
  *           type: string
  *           description: Create Time of Message
@@ -50,6 +53,7 @@ const router = express.Router();
  *         message: String
  *         classId: 62e8c62b587bcad52fbaf0b7
  *         userId: 62e8c62b587bcad52fbaf0b7
+ *         status: true
  *         createdAt: 2022-08-02T06:37:31.665+00:00
  *         updatedAt: 2022-08-15T14:13:19.886+00:00
  *   parameters:
@@ -91,8 +95,102 @@ const router = express.Router();
  *         message: message
  *         userId: 62e8c62b587bcad52fbaf0b7
  *         classId: 62e8c62b587bcad52fbaf0b7
+ *         status: true
  */
 
+// -------------------Add Message----------------------
+/**
+ * @swagger
+ * /api/message:
+ *   post:
+ *     summary: Create a Message
+ *     tags: [Messages]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Message'
+ *     responses:
+ *       200:
+ *         description: Message was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Message'
+ *       400:
+ *         description: Fail to create a Message
+ */
+
+ router.post("/message", createMessage);
+
+
+// -------------------Update Message----------------------
+/**
+ * @swagger
+ * /api/message/{id}:
+ *   put:
+ *     summary: Update a Message
+ *     tags: [Messages]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The Message id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Message'
+ *     responses:
+ *       200:
+ *         description: Message was successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Message'
+ *       400:
+ *         description: Fail to updated a Message
+ */
+
+ router.put("/message/:id", updateMessage);
+
+
+// -------------------Remove Message----------------------
+/**
+ * @swagger
+ * /api/message/{id}:
+ *   delete:
+ *     summary: Remove a Message by id
+ *     tags: [Messages]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The Message id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Message'
+ *     responses:
+ *       200:
+ *         description: Message was successfully removed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Message'
+ *       400:
+ *         description: Fail to removed a Message
+ */
+
+ router.delete("/message/:id", removeMessage);
 
 // -------------------Get Message by class----------------------
 /**
