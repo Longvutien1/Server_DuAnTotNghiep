@@ -1,6 +1,6 @@
  var express = require('express');
  var router = express.Router();
- var $ = require('jquery');
+//  var $ = require('jquery');
 const { get_payment_url, post_payment_url, vppay_return, vnpay_idn, redirect_vnpay, addNewPayment } = require('../controllers/vnpayController');
  
 
