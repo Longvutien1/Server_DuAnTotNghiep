@@ -4,6 +4,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import swaggerUI from 'swagger-ui-express'
 import swaggerJsDoc from 'swagger-jsdoc'
+var bodyParser = require('body-parser');
 
 import homeRouter from './routes/home';
 import { checkAuth } from './midlerware/checkAuth';
@@ -83,6 +84,13 @@ import PracticeActivityRouter from './routes/practiceActivity'
 //----------------GoogleSpeech---------
 import googleSpeech from './routes/googleSpeech';
 
+
+// ------------- VNPAY--------------------------------
+import vnpay from './routes/vnpayRoute';
+
+import messageRouter from './routes/message';
+
+
 const speech = require('@google-cloud/speech');
 const speechClient = new speech.SpeechClient()
 
@@ -108,12 +116,15 @@ const specs = swaggerJsDoc(options)
 
 const app = express();
 const path = require("path");
-
+var bodyParser = require('body-parser');
 const nodemailer = require("nodemailer")
 
 
 app.use(morgan("tiny"));
 app.use(express.json());
+// app.use(express.json({limit: '50mb'}));
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 app.use(express.urlencoded({ extended: false }));
 app.use(cors())
 require('dotenv').config()
@@ -201,12 +212,28 @@ app.use('/api', PracticeActivityRouter)
 //----------------GoogleSpeech-------------
 app.use('/api', googleSpeech)
 
+// -------------- VNPAY ----------------
+app.use('/api',vnpay)
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+//----------------GoogleSpeech-------------
+app.use('/api', messageRouter)
+
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("DB Connected"))
   .catch((error) => console.log("DB not connected ", error));
 
 
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+    res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
+    next(); 
+})
 // mongoose.connect('mongodb://localhost:27017/datn')
 
 // app.use(express.static(path.join(__dirname, "./frontend/build")));

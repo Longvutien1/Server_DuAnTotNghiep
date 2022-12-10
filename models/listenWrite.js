@@ -1,39 +1,26 @@
 import mongoose from "mongoose";
-import { stringify } from "uuid";
-const { ObjectId } = mongoose
+const { ObjectId } = mongoose;
 
-const listenWriteSchema = new mongoose.Schema({
-    area: {
-        type: String,
-    },
+const listenWriteSchema = new mongoose.Schema(
+  {
     practiceActivity: {
-        type: ObjectId,
-        ref: "PracticeActivity"
+      type: ObjectId,
+      ref: "PracticeActivity",
     },
-    content: [
-        {
-            name: {
-                type: String,
-            },
-            text: {
-                type: String,
-            },
-            answer: {
-                type: Array,
-            }
-        }
-    ],
-
-    // order:{
-    //     type: Number,
-    //     required:true
-    // },
-    audio:{
-        type: String,
-    },
-    structure:{
+    audio: {
       type: String,
-    }
-}, { timestamps: true })
+      required: true
+    },
+    conversation:{
+      type: Object,
+      required: true
+    },
+    structure: {
+      type: String,
+      required: true
+    },
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model("ListenWrite", listenWriteSchema)
+export default mongoose.model("ListenWrite", listenWriteSchema);

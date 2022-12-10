@@ -1,5 +1,5 @@
 import express from "express";
-import { addListenWrite, deleteListenWrite, detailListenWrite, detailListenWriteByIdCategory, editListenWrite, listListenWrite } from "../controllers/listenWrite";
+import { addListenWrite, deleteListenWrite, detailListenWrite, detailListenWriteByActivity, editListenWrite, listListenWrite } from "../controllers/listenWrite";
 
 
 
@@ -148,7 +148,7 @@ const router = express.Router()
   *             description: The ListenWrites is Not found
   */
  
-  router.get("/listenWrite/:id/writeAndListen", detailListenWriteByIdCategory )
+  router.get("/listenWrite/:id/writeAndListen", detailListenWriteByActivity )
 
  
  // -------------------Add ListenWrite----------------------

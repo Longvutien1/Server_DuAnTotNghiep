@@ -3,16 +3,22 @@ const { ObjectId } = mongoose;
 
 const answerListenWriteSchema = new mongoose.Schema(
   {
-    idQuestion: {
+    idListenWrite: {
       type: ObjectId,
-      ref: "QuestionListenWrite",
+      ref: "ListenWrite",
     },
-    answer: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    answer: {
+      type: String,
+      required: true,
+    },
+    confidence: {
+      type: String,
+      required: true,
+    },
+    order: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true }
 );
