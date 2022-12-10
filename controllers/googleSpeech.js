@@ -1,7 +1,9 @@
 
 
-const speech = require('@google-cloud/speech');
-const fs = require('fs');
+// const speech = require('@google-cloud/speech');
+import speech from '@google-cloud/speech'
+import fs from 'fs'
+// const fs = require('fs');
 // Instantiates a client
 const client = new speech.SpeechClient();
 
@@ -61,8 +63,8 @@ export const transcribeSpeech = async (req, res) => {
     res.json({ response })
 }
 
-const path = require("path");
-const { Storage } = require("@google-cloud/storage");
+// const { Storage } = require("@google-cloud/storage");
+import {Storage} from "@google-cloud/storage"
 // const fs = require('fs')
 
 
@@ -167,11 +169,13 @@ export const uploadAudio = async (req, res) => {
 
 
 // Imports the Google Cloud client library
-const textToSpeech = require('@google-cloud/text-to-speech');
+// const textToSpeech = require('@google-cloud/text-to-speech');
+import textToSpeech from '@google-cloud/text-to-speech'
 
 // Import other required libraries
 // const fs = require('fs');
-const util = require('util');
+// const util = require('util');
+import util from 'util'
 // Creates a client
 const client2 = new textToSpeech.TextToSpeechClient();
 export const quickStart = async (req, res) => {

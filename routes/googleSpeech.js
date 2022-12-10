@@ -1,6 +1,8 @@
 import express from "express";
 import { getAudio, transcribeSpeech, uploadAudio, quickStart } from "../controllers/googleSpeech";
-const Multer = require("multer");
+// const Multer = require("multer");
+
+import Multer from 'multer'
 
 const multer = Multer({
     storage: Multer.memoryStorage(),
