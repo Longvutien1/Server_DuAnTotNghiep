@@ -132,3 +132,11 @@ export const addNewPayment = async (req, res) =>{
         res.status(400).json({message:"Thêm thất bại"})
     }
 }
+export const getPayment = async (req, res) => {
+    try {
+        const pay = await Vnpayment.find().exec()
+        res.json(pay)
+    } catch (error) {
+        res.status(400).json({message:"Không tìm thấy"})
+    }
+}
