@@ -9,7 +9,7 @@ export const post_payment_url =  (req, res, next) => {
         var tmnCode = "RIFPZ1EZ";
         var secretKey = "ZUNQVVDFXRBTMTYBUGAAPIOBHQQZIHSS";
         var vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        var returnUrl = "http://localhost:3000/payment/vnpay_return";
+        var returnUrl = "https://duantotnghiep-one.vercel.app/payment/vnpay_return";
         var date = new Date();
     
         var createDate = dateFormat(date, 'yyyymmddHHmmss');
@@ -130,5 +130,13 @@ export const addNewPayment = async (req, res) =>{
         res.json(pay)
     } catch (error) {
         res.status(400).json({message:"Thêm thất bại"})
+    }
+}
+export const getPayment = async (req, res) => {
+    try {
+        const pay = await Vnpayment.find().exec()
+        res.json(pay)
+    } catch (error) {
+        res.status(400).json({message:"Không tìm thấy"})
     }
 }
