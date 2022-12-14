@@ -1,98 +1,100 @@
+// --es-module-specifier-resolution=node
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors'
 import morgan from 'morgan'
 import swaggerUI from 'swagger-ui-express'
 import swaggerJsDoc from 'swagger-jsdoc'
-var bodyParser = require('body-parser');
+import bodyParser from 'body-parser'
 
-import homeRouter from './routes/home';
-import { checkAuth } from './midlerware/checkAuth';
-import routeAuth from './routes/auth';
+import homeRouter from './routes/home.js';
+import { checkAuth } from './midlerware/checkAuth.js';
+// import routeAuth from '../routes/auth.js';
+import routeAuth from './routes/auth'
 
-import routeCategory from './routes/category';
+import routeCategory from './routes/category.js';
 
-import routerSpeak from './routes/speak';
-import routerQuiz from './routes/quiz';
+import routerSpeak from './routes/speak.js';
+import routerQuiz from './routes/quiz.js';
 
-import routerListenWrite from './routes/listenWrite'; 
-import routerQuestionListenWrite from './routes/questionListenWrite'; 
+import routerListenWrite from './routes/listenWrite.js'; 
+import routerQuestionListenWrite from './routes/questionListenWrite.js'; 
 
 //----------------QUESTION------------------------ 
 
-import routerAnswerSpeak from './routes/answerSpeak';
-import routerAnswerQuiz from './routes/answerQuiz';
-import routerAnswerListenWrite from './routes/answerListenWrite';
+import routerAnswerSpeak from './routes/answerSpeak.js';
+import routerAnswerQuiz from './routes/answerQuiz.js';
+import routerAnswerListenWrite from './routes/answerListenWrite.js';
 //----------------ANSWER------------------------ 
 
-import routerUserSpeak from './routes/userSpeak';
-import routerUserQuiz from './routes/userQuiz';
-import routerUserListenWrite from './routes/userListenWrite';
-import routerEmail from './routes/sendMail';
-import routeContact from './routes/contact';
+import routerUserSpeak from './routes/userSpeak.js';
+import routerUserQuiz from './routes/userQuiz.js';
+import routerUserListenWrite from './routes/userListenWrite.js';
+import routerEmail from './routes/sendMail.js';
+import routeContact from './routes/contact.js';
 
-import wellcome from './routes/wellcome'
-import paypalR from './routes/paypalRouter';
+import wellcome from './routes/wellcome.js'
+import paypalR from './routes/paypalRouter.js';
 
 //-----------------USER-ANSWER------------------------ 
 
 
 //-----------------History------------------------ 
-import routerHistory from './routes/history';
+import routerHistory from './routes/history.js';
 
 
 //Vocabulary
-import vocabulary from './routes/vocabularyRouter'
-import routeComment from './routes/comment';
-import topicVocabulary from './routes/topicVocabulary';
+import vocabulary from './routes/vocabularyRouter.js'
+import routeComment from './routes/comment.js';
+import topicVocabulary from './routes/topicVocabulary.js';
 //----------------Lecture Video------------------------ 
 
 
-import rourerLectureVideo from './routes/lectureVideo';
-import grammar from './routes/grammar';
-import classRouter from './routes/class'
+import rourerLectureVideo from './routes/lectureVideo.js';
+import grammar from './routes/grammar.js';
+import classRouter from './routes/class.js'
 
 
 
 //Sentences
-import sentences from './routes/sentences';
-const { Auth, LoginCredentials  } = require("two-step-auth");
-
+import sentences from './routes/sentences.js';
+ 
+import { Auth, LoginCredentials  } from 'two-step-auth'
 
 //-----------------Course------------------------ 
-import course from './routes/course';
+import course from './routes/course.js';
 
-import noteCouse from './routes/noteRouter';
+import noteCouse from './routes/noteRouter.js';
 
 //-----------------Month------------------------ 
-import month from './routes/month';
+import month from './routes/month.js';
 
 //-----------------Week------------------------ 
-import week from './routes/week';
+import week from './routes/week.js';
 
 //-----------------Day------------------------ 
-import day from './routes/day';
-import routeReplyComment from './routes/replycomment';
+import day from './routes/day.js';
+import routeReplyComment from './routes/replycomment.js';
 
 
 //----------------PracticeActivity---------
 
 //-----------------LearningProgress------------------------ 
-import LearningProgress from './routes/learningProgress';
-import PracticeActivityRouter from './routes/practiceActivity'
+import LearningProgress from './routes/learningProgress.js';
+import PracticeActivityRouter from './routes/practiceActivity.js'
 
 //----------------GoogleSpeech---------
-import googleSpeech from './routes/googleSpeech';
+import googleSpeech from './routes/googleSpeech.js';
 
 
 // ------------- VNPAY--------------------------------
-import vnpay from './routes/vnpayRoute';
+import vnpay from './routes/vnpayRoute.js';
 
-import messageRouter from './routes/message';
+import messageRouter from './routes/message.js';
 
 
-const speech = require('@google-cloud/speech');
 const speechClient = new speech.SpeechClient()
+import speech from '@google-cloud/speech'
 
 const options = {
   definition: {
@@ -115,10 +117,7 @@ const specs = swaggerJsDoc(options)
 
 
 const app = express();
-const path = require("path");
-var bodyParser = require('body-parser');
-const nodemailer = require("nodemailer")
-
+// import bodyParser from 'body-parser'
 
 app.use(morgan("tiny"));
 app.use(express.json());
@@ -127,8 +126,9 @@ app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 app.use(express.urlencoded({ extended: false }));
 app.use(cors())
-require('dotenv').config()
-
+// require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
 // swagger API documents router
 app.use("/documents", swaggerUI.serve, swaggerUI.setup(specs))
 
@@ -254,10 +254,12 @@ const port = process.env.PORT || 8000
 // const server = require('http').createServer(app);
 
 // const io = require('socket.io')(server);
-const socketIO = require("socket.io")
-
+// const socketIO = require("socket.io")
+// import {socketIO} from 'socket.io'
+import { Server } from 'socket.io';
+// const socketio = new Server(server);
 const server = app.listen(port, () => console.log(`Application up and running on ${port}`))
-const io = socketIO(server);
+const io = new Server(server);
 
 // =========================== SOCKET.IO ================================ //
 

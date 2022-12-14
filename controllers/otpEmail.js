@@ -1,4 +1,4 @@
-import sendEmail from "../util/sendEmail";
+import {sendEmail} from "../util/sendEmail";
 
 export const loginEmail = async (req, res) => {
   try {

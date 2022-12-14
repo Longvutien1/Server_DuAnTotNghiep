@@ -1,6 +1,6 @@
 import Quiz from "../models/quiz";
-const nodemailer = require("nodemailer")
-
+// const nodemailer = require("nodemailer")
+import nodemailer from 'nodemailer'
 
 export const addMail = async (req, res) => {
    const  {email}  = req.body;
