@@ -104,7 +104,7 @@ const options = {
     },
     server: [
       {
-        url: "http://localhost:8000"
+        url: "https://serverduantotnghiep-production-53a7.up.railway.app"
       }
     ],
   },
