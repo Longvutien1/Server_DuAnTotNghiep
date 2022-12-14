@@ -1,6 +1,7 @@
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
+import nodemailer from 'nodemailer'
 
-const sendEmail = async (email, subject, text) => {
+export const sendEmail = async (email, subject, text) => {
     try {
         const transporter = nodemailer.createTransport({
             host: 'http://localhost:8000/api',
@@ -26,4 +27,4 @@ const sendEmail = async (email, subject, text) => {
     }
 };
 
-module.exports = sendEmail;
+// module.exports = sendEmail;
