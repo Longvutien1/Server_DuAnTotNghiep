@@ -19,6 +19,10 @@ const answerListenWriteSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    stt:{
+      type: Number,
+      required: true,
+    }
   },
   { timestamps: true }
 );
