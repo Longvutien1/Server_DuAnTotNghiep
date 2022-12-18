@@ -2,7 +2,8 @@
  import express from 'express'
  var router = express.Router();
 // const { get_payment_url, post_payment_url, vppay_return, vnpay_idn, redirect_vnpay, addNewPayment } = require('../controllers/vnpayController');
-import {  post_payment_url, vppay_return, vnpay_idn, addNewPayment } from '../controllers/vnpayController'
+import {  post_payment_url, vppay_return, vnpay_idn,  addNewPayment, getPayment } from '../controllers/vnpayController'
+
 
  router.post('/create_payment_url', post_payment_url);
  
@@ -11,4 +12,5 @@ import {  post_payment_url, vppay_return, vnpay_idn, addNewPayment } from '../co
  router.get('/vnpay_ipn', vnpay_idn);
 
  router.post('/payment', addNewPayment)
+ router.get('/payment', getPayment)
  export default router;
