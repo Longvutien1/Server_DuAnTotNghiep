@@ -12,5 +12,7 @@ import {  post_payment_url, vppay_return, vnpay_idn,  addNewPayment, getPayment 
  router.get('/vnpay_ipn', vnpay_idn);
 
  router.post('/payment', addNewPayment)
+ 
  router.get('/payment', getPayment)
+
  export default router;
