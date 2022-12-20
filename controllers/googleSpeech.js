@@ -123,6 +123,7 @@ export const uploadAudio = async (req, res) => {
                     languageCode: 'en-US',
                     enableWordTimeOffsets: true,
                     audioChannelCount: 2,
+                    // enableSeparateRecognitionPerChannel: true,
                 };
 
                 const request = {
@@ -180,13 +181,16 @@ import util from 'util'
 const client2 = new textToSpeech.TextToSpeechClient();
 export const quickStart = async (req, res) => {
     // The text to synthesize
-    const text = req.body;
+    const text = req.body.value
+    const language = req.body.language
+    const type = req.body.type
+    const gender = req.body.gender
     console.log("text", text);
     // Construct the request
     const request = {
         input: { text: text },
         // Select the language and SSML voice gender (optional)
-        voice: { languageCode: 'en-US', ssmlGender: 'NEUTRAL' },
+        voice: { languageCode: language, ssmlGender: gender, name:type, },
         // select the type of audio encoding
         audioConfig: { audioEncoding: 'MP3' },
     };
@@ -202,9 +206,19 @@ export const quickStart = async (req, res) => {
         if (err) throw err;
         console.log('File is created successfully.');
     })
-
+    var abc=""
     const readStream = fs.createReadStream("output.mp3");
-    readStream.pipe(res)
+    // console.log("readStream", readStream);
+    readStream.on("data", function(data) {
+        // var buffer = new Buffer()
+        var chunk = data.toString();
+        abc = Buffer.from(data).toString('base64')
+        res.json(abc)
+    }); 
+    // console.log("abc 2", abc);
+    // readStream.pipe(res)
+    // console.log("res", res);
+    // console.log("readStream.pipe(res)", readStream.pipe(res));
     // const flag2 =  readStream.pipe(res);
     // res.json(flag2)
 

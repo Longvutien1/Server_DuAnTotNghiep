@@ -8,8 +8,8 @@
   },
   "type": "module",
   "scripts": {
-    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node app.js",
-    "start:server": "nodemon app.js --exec babel-node -e js"
+    "start:server": "nodemon --experimental-modules --es-module-specifier-resolution=node app.js",
+    "start": "nodemon app.js --exec babel-node -e js"
   },
   "keywords": [],
   "author": "",
