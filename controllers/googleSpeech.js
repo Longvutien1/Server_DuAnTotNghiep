@@ -202,10 +202,12 @@ export const quickStart = async (req, res) => {
 
     const writeFile = util.promisify(fs.writeFile);
     // const flag = await writeFile('output.mp3', response.audioContent, 'binary');
-    const flag = await fs.writeFile('output.mp3', response.audioContent, (err) => {
-        if (err) throw err;
-        console.log('File is created successfully.');
-    })
+    // const flag = await fs.writeFile('output.mp3', response.audioContent, (err) => {
+    //     if (err) throw err;
+    //     console.log('File is created successfully.');
+    // })
+    const flag = await writeFile('output.mp3', response.audioContent, 'binary');
+
     var abc=""
     const readStream = fs.createReadStream("output.mp3");
     // console.log("readStream", readStream);
