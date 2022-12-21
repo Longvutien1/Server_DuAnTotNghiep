@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer'
 export const sendEmail = async (email, subject, text) => {
     try {
         const transporter = nodemailer.createTransport({
-            host: 'http://localhost:8000/api',
+            host: 'https://serverduantotnghiep-production-53a7.up.railway.app/api',
             service: "tllong20002@gmail.com",
             port: 587,
             secure: true,

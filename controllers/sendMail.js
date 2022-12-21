@@ -22,7 +22,7 @@ export const addMail = async (req, res) => {
       to: `${email}`,
       subject: "Forgot Password",
       text: "Bạn ",
-      html: `<p>Bấm vào  <a href='http://localhost:3000/newPassword/${_id}'>đây</a> để đổi mật khẩu </p>`,
+      html: `<p>Bấm vào  <a href='https://duantotnghiep-one.vercel.app/newPassword/${_id}'>đây</a> để đổi mật khẩu </p>`,
     },
     (err) => {
       if (err) {

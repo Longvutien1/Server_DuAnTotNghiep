@@ -9,14 +9,10 @@ import bodyParser from 'body-parser'
 
 import homeRouter from './routes/home.js';
 import { checkAuth } from './midlerware/checkAuth.js';
-// import routeAuth from '../routes/auth.js';
-import routeAuth from './routes/auth'
-
+import routeAuth from './routes/auth.js';
 import routeCategory from './routes/category.js';
-
 import routerSpeak from './routes/speak.js';
 import routerQuiz from './routes/quiz.js';
-
 import routerListenWrite from './routes/listenWrite.js'; 
 import routerQuestionListenWrite from './routes/questionListenWrite.js'; 
 
@@ -106,7 +102,7 @@ const options = {
     },
     server: [
       {
-        url: "http://localhost:8000"
+        url: "https://serverduantotnghiep-production-53a7.up.railway.app"
       }
     ],
   },
