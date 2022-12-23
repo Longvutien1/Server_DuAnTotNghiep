@@ -11,7 +11,7 @@ export const post_payment_url =  (req, res, next) => {
         var tmnCode = "WU5MGYB9";
         var secretKey = "BOSMNPJJZCBIHTQRLUJSWGPLBUSPNRRZ";
         var vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        var returnUrl = "http://localhost:3000/payment/vnpay_return";
+        var returnUrl = "https://duantotnghiep-one.vercel.app/payment/vnpay_return";
         var date = new Date();
     
         var createDate = dateFormat(date, 'yyyymmddHHmmss');
