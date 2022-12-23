@@ -8,10 +8,10 @@ export const post_payment_url =  (req, res, next) => {
             req.connection.remoteAddress ||
             req.socket.remoteAddress ||
             req.connection.socket.remoteAddress;
-        var tmnCode = "RIFPZ1EZ";
-        var secretKey = "ZUNQVVDFXRBTMTYBUGAAPIOBHQQZIHSS";
+        var tmnCode = "WU5MGYB9";
+        var secretKey = "BOSMNPJJZCBIHTQRLUJSWGPLBUSPNRRZ";
         var vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        var returnUrl = "https://duantotnghiep-one.vercel.app/payment/vnpay_return";
+        var returnUrl = "http://localhost:3000/payment/vnpay_return";
         var date = new Date();
     
         var createDate = dateFormat(date, 'yyyymmddHHmmss');
@@ -61,7 +61,7 @@ export const vppay_return =  (req, res, next) => {
     delete vnp_Params['vnp_SecureHashType'];
 
     vnp_Params = sortObject(vnp_Params);
-    var secretKey =  "ZUNQVVDFXRBTMTYBUGAAPIOBHQQZIHSS";
+    var secretKey =  "BOSMNPJJZCBIHTQRLUJSWGPLBUSPNRRZ";
     var signData = querystring.stringify(vnp_Params, { encode: false });
     
     var hmac = crypto.createHmac("sha512", secretKey);
@@ -84,7 +84,7 @@ export const vnpay_idn =  (req, res, next) => {
     vnp_Params = sortObject(vnp_Params);
     var config = require('config');
 
-    var secretKey = "ZUNQVVDFXRBTMTYBUGAAPIOBHQQZIHSS";
+    var secretKey = "BOSMNPJJZCBIHTQRLUJSWGPLBUSPNRRZ";
     var signData = querystring.stringify(vnp_Params, { encode: false });
     var hmac = crypto.createHmac("sha512", secretKey);
     var signed = hmac.update(new Buffer(signData, 'utf-8')).digest("hex");     
