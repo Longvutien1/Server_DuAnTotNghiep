@@ -123,6 +123,7 @@ export const uploadAudio = async (req, res) => {
                     languageCode: 'en-US',
                     enableWordTimeOffsets: true,
                     audioChannelCount: 2,
+                    // enableSeparateRecognitionPerChannel: true,
                 };
 
                 const request = {
@@ -169,49 +170,32 @@ export const uploadAudio = async (req, res) => {
 
 
 // Imports the Google Cloud client library
-// const textToSpeech = require('@google-cloud/text-to-speech');
 import textToSpeech from '@google-cloud/text-to-speech'
-
-// Import other required libraries
-// const fs = require('fs');
-// const util = require('util');
 import util from 'util'
-// Creates a client
 const client2 = new textToSpeech.TextToSpeechClient();
 export const quickStart = async (req, res) => {
-    // The text to synthesize
-    const text = req.body;
-    console.log("text", text);
-    // Construct the request
+    const text = req.body.value
+    const language = req.body.language
+    const type = req.body.type
+    const gender = req.body.gender
     const request = {
         input: { text: text },
-        // Select the language and SSML voice gender (optional)
-        voice: { languageCode: 'en-US', ssmlGender: 'NEUTRAL' },
-        // select the type of audio encoding
+        voice: { languageCode: language, ssmlGender: gender, name:type, },
         audioConfig: { audioEncoding: 'MP3' },
     };
 
-    // Performs the text-to-speech request
     const [response] = await client2.synthesizeSpeech(request);
-    // Write the binary audio content to a local file
-    console.log("response", response);
-
     const writeFile = util.promisify(fs.writeFile);
-    // const flag = await writeFile('output.mp3', response.audioContent, 'binary');
-    const flag = await fs.writeFile('output.mp3', response.audioContent, (err) => {
-        if (err) throw err;
-        console.log('File is created successfully.');
-    })
-
+    const flag = await writeFile('output.mp3', response.audioContent, 'binary');
+    var abc=""
     const readStream = fs.createReadStream("output.mp3");
-    readStream.pipe(res)
-    // const flag2 =  readStream.pipe(res);
-    // res.json(flag2)
-
+    readStream.on("data", function(data) {
+        var chunk = data.toString();
+        abc = Buffer.from(data).toString('base64')
+        res.json(abc)
+    }); 
     console.log('Audio content written to file: output.mp3');
 }
-// quickStart();
-
 
 
 
