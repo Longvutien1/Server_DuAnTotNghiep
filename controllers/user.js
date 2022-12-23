@@ -29,6 +29,7 @@ export const signIn = async (req, res) => {
         address: user.address,
         img: user.img,
         sex: user.sex,
+        pay:user.pay,
         colorImage: user.colorImage,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
@@ -97,6 +98,7 @@ export const signInWidthFaceBook = async (req, res) => {
           address: exisUser.address,
           img: exisUser.img,
           sex: exisUser.sex,
+          pay:exisUser.pay,
         },
         "123456",
         { expiresIn: "12h" }
@@ -126,6 +128,7 @@ export const signInWidthFaceBook = async (req, res) => {
           address: user.address,
           img: user.img,
           sex: user.sex,
+          pay:user.pay,
         },
         "123456",
         { expiresIn: "12h" }
@@ -158,6 +161,7 @@ export const signInWidthGoogle = async (req, res) => {
           address: exisUser.address,
           img: exisUser.img,
           sex: exisUser.sex,
+          pay:exisUser.pay,
         },
         "123456",
         { expiresIn: "12h" }
@@ -287,6 +291,7 @@ export const updateAuth = async (request, response) => {
         address: user.address,
         img: user.img,
         sex: user.sex,
+        pay: user.pay,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       },
