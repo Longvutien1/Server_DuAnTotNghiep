@@ -126,7 +126,16 @@ export const addNewPayment = async (req, res) =>{
 }
 export const getPayment = async (req, res) => {
     try {
-        const pay = await Vnpayment.find().exec()
+        const pay = await Vnpayment.find().sort({createdAt:-1}).exec()
+        res.json(pay)
+    } catch (error) {
+        res.status(400).json({message:"Không tìm thấy"})
+    }
+}
+
+export const getDetailPayment = async (req, res) => {
+    try {
+        const pay = await Vnpayment.findOne({_id: req.params.id}).exec();
         res.json(pay)
     } catch (error) {
         res.status(400).json({message:"Không tìm thấy"})
